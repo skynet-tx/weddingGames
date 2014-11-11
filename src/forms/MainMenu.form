@@ -9,15 +9,18 @@
       <size top="10" left="10" bottom="10" right="10"/>
     </border>
     <children>
-      <component id="eb6b8" class="javax.swing.JLabel">
+      <component id="eb6b8" class="javax.swing.JLabel" binding="logo">
         <constraints border-constraint="North"/>
         <properties>
-          <text value="Label"/>
+          <horizontalAlignment value="0"/>
+          <text value=""/>
         </properties>
       </component>
       <grid id="a33bd" layout-manager="GridBagLayout">
         <constraints border-constraint="Center"/>
-        <properties/>
+        <properties>
+          <foreground color="-1118482"/>
+        </properties>
         <border type="empty">
           <size top="0" left="200" bottom="0" right="200"/>
         </border>
@@ -31,7 +34,7 @@
           <vspacer id="b0cde">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="1.0" weighty="0.0" ipady="10"/>
+              <gridbag weightx="1.0" weighty="1.0" ipady="10"/>
             </constraints>
           </vspacer>
           <component id="7d759" class="javax.swing.JButton" binding="seaBattle">
@@ -40,7 +43,7 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Морской бой"/>
+              <text value="Начать игру &quot;Морской бой&quot;"/>
             </properties>
           </component>
           <component id="730de" class="javax.swing.JButton" binding="findMoney">
@@ -49,7 +52,7 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Заначка"/>
+              <text value="Начать игру &quot;Заначка и Пузырь&quot;"/>
             </properties>
           </component>
           <component id="b0267" class="javax.swing.JButton" binding="prefs">

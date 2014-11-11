@@ -11,7 +11,7 @@
 <embeddedJar>true</embeddedJar>
 <executableName>..\..\ggg\out.exe</executableName>
 <initialMemoryHeap>-1</initialMemoryHeap>
-<jarLocation>out\artifacts\party_jar\party.jar</jarLocation>
+<jarLocation>out\artifacts\wedding_jar\wedding.jar</jarLocation>
 <mainClassName>Application</mainClassName>
 <maximumMemoryHeap>-1</maximumMemoryHeap>
 <maximumVersion></maximumVersion>

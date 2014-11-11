@@ -11,7 +11,7 @@ public class GridView extends Component {
     private GridViewAdapter adapter;
     private Color boundColor = new Color(0xff000000);
     private Color backgroundColor = new Color(0xffb0b0b0);
-    private int boundWidth = 4;
+    private int boundWidth = 2;
 
     private float cellWidth;
     private float cellWidthFull;

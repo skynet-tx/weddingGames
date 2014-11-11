@@ -21,6 +21,6 @@ public class TestAdapter extends GridViewAdapter {
 
     @Override
     public Paintable getPaintableForCell(int x, int y) {
-        return new ColorPaintable(new Color(0xff906060), host.getCellRectangle(x, y));
+        return new ColorPaintable(new Color(0xffd0d0d0), host.getCellRectangle(x, y));
     }
 }
