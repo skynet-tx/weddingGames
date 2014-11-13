@@ -39,7 +39,7 @@ public class PrefsMenu  extends ManagedForm implements ActionListener{
             NavigationController.getInstance().switchScreen(NavigationController.SCREEN_MAIN_MENU);
         }
         if (e.getSource() == seaBattle) {
-
+            NavigationController.getInstance().switchScreen(NavigationController.SCREEN_PREFERENCES_SEEBATTLE);
         }
         if (e.getSource() == seekHidden) {
 

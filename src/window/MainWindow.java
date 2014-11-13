@@ -20,6 +20,7 @@ public class MainWindow extends JFrame implements ActionListener {
     public MainWindow() {
         setTitle("Party");
         setSize(1024, 768);
+        setMinimumSize(new Dimension(800, 600));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         NavigationController.init(this);

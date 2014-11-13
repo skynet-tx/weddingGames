@@ -1,9 +1,6 @@
 package navigation;
 
-import forms.MainMenu;
-import forms.ManagedForm;
-import forms.PrefsMenu;
-import forms.SeaBattle;
+import forms.*;
 
 import javax.swing.*;
 
@@ -15,12 +12,14 @@ public class NavigationController {
     public static final int SCREEN_MAIN_MENU = 1;
     public static final int SCREEN_SEABATTLE = 2;
     public static final int SCREEN_PREFERENCES = 3;
+    public static final int SCREEN_PREFERENCES_SEEBATTLE = 4;
 
     private JFrame host;
 
     private SeaBattle seaBattle;
     private MainMenu mainMenu;
     private PrefsMenu prefsMenu;
+    private SeabattlePrefs seaPrefs;
 
     private static NavigationController instace;
 
@@ -42,6 +41,9 @@ public class NavigationController {
 
         prefsMenu = new PrefsMenu();
         prefsMenu.init();
+
+        seaPrefs = new SeabattlePrefs();
+        seaPrefs.init();
     }
 
     public void switchScreen(int formId) {
@@ -52,7 +54,7 @@ public class NavigationController {
         host.getContentPane().repaint();
     }
 
-    public ManagedForm getScreen(int formId) {
+    private ManagedForm getScreen(int formId) {
         switch (formId) {
             case SCREEN_MAIN_MENU:
                 return mainMenu;
@@ -60,6 +62,8 @@ public class NavigationController {
                 return seaBattle;
             case SCREEN_PREFERENCES:
                 return prefsMenu;
+            case SCREEN_PREFERENCES_SEEBATTLE:
+                return seaPrefs;
         }
         return null;
     }
