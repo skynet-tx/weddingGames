@@ -1,12 +1,16 @@
 package widgets.gridview;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Created by SER on 06.11.2014.
  */
-public class GridView extends Component {
+public class GridView extends JComponent {
 
     private GridViewAdapter adapter;
     private Color boundColor = new Color(0xff000000);
@@ -18,6 +22,15 @@ public class GridView extends Component {
     private float cellHeight;
     private float cellHeightFull;
 
+    private CellClickListener listener;
+
+    public interface CellClickListener {
+        void onCellClicked(int x, int y);
+    }
+
+    public void setListener(CellClickListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void setBounds(int x, int y, int width, int height) {
@@ -56,7 +69,6 @@ public class GridView extends Component {
                 adapter.getPaintableForCell(x, y).onPaint(g);
             }
         }
-
     }
 
     @Override
@@ -91,6 +103,10 @@ public class GridView extends Component {
         notifyChanged();
     }
 
+    public GridView() {
+        addMouseListener(mouseListener);
+    }
+
     public Rectangle getCellRectangle(int i, int j) {
         if (adapter == null) {
             return null;
@@ -98,6 +114,37 @@ public class GridView extends Component {
         int x = (int)Math.ceil(boundWidth + i * cellWidthFull);
         int y = (int)Math.ceil(boundWidth + j * cellHeightFull);
         return new Rectangle(x, y, (int)Math.ceil(cellWidth), (int)Math.ceil(cellHeight));
+
     }
+
+    private MouseListener mouseListener = new MouseListener() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            Point point = e.getPoint();
+            if (listener != null) {
+                listener.onCellClicked((int)(point.x / cellWidthFull), (int)(point.y / cellHeightFull));
+            }
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    };
 
 }

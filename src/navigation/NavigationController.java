@@ -21,14 +21,14 @@ public class NavigationController {
     private PrefsMenu prefsMenu;
     private SeabattlePrefs seaPrefs;
 
-    private static NavigationController instace;
+    private static NavigationController instance;
 
     public static void init(JFrame host) {
-        instace = new NavigationController(host);
+        instance = new NavigationController(host);
     }
 
     public static NavigationController getInstance() {
-        return instace;
+        return instance;
     }
 
     private NavigationController(JFrame host) {

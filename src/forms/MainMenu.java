@@ -1,5 +1,6 @@
 package forms;
 
+import managers.ImageManager;
 import navigation.NavigationController;
 
 import javax.swing.*;
@@ -40,10 +41,7 @@ public class MainMenu extends ManagedForm implements ActionListener {
             }
         });
 
-        ClassLoader cl= this.getClass().getClassLoader();
-        URL imageURL   = cl.getResource("resources/logo_default.png");
-        ImageIcon icon = new ImageIcon(imageURL);
-        logo.setIcon(icon);
+        logo.setIcon(ImageManager.getImageByResourceName("logo_default.png"));
     }
 
     @Override

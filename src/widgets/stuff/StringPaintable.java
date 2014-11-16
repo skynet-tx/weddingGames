@@ -14,6 +14,10 @@ public class StringPaintable extends ColorPaintable {
         this.text = text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public void onPaint(Graphics g) {
         super.onPaint(g);

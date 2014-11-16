@@ -3,7 +3,6 @@ package forms;
 import dialogs.DialogFactory;
 import navigation.NavigationController;
 import widgets.gridview.GridView;
-import widgets.gridview.TestAdapter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +25,9 @@ public class SeaBattle extends ManagedForm implements ActionListener {
         gridView = new GridView();
         game.add(gridView);
         gridView.setBoundColor(new Color(0xffa8a8f0));
-        gridView.setAdapter(new TestAdapter());
+        games.seabattle.SeaBattle seaBattle = new games.seabattle.SeaBattle();
+        gridView.setListener(seaBattle);
+        gridView.setAdapter(seaBattle);
         back.addActionListener(this);
         restartGame.addActionListener(this);
 
