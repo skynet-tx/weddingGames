@@ -12,7 +12,15 @@ public class Prize {
     Icon picture;
 
     public Prize() {
-        picture = ImageManager.getImageByResourceName("default_manager");
+        picture = ImageManager.getImageByResourceName("default_image.png");
         name = "Приз";
+    }
+
+    public Icon getPicture() {
+        return picture;
+    }
+
+    public String getName() {
+        return name;
     }
 }

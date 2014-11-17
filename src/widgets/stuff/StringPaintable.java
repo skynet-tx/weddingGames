@@ -25,7 +25,7 @@ public class StringPaintable extends ColorPaintable {
             return;
         }
         g.setColor(new Color(0xFF7070a0));
-        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.setFont(new Font("Arial", Font.PLAIN, 30));
         FontMetrics metrics = g.getFontMetrics();
         int height = metrics.getHeight();
         int width = (int)metrics.getStringBounds(text ,g).getWidth();

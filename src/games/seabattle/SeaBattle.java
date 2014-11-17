@@ -16,6 +16,11 @@ import java.awt.event.MouseListener;
  */
 public class SeaBattle extends GridViewAdapter implements GridView.CellClickListener {
 
+    public interface SeaBattleListener {
+        public void onTurn(Prize prize);
+        public void onGameEnds();
+    }
+
     private String[] labels = new String[]{"а", "б", "в", "г", "д", "е", "ж", "з", "и", "к"};
 
     int height = 10;
@@ -27,6 +32,12 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
     private ColorPaintable openedPaintable;
     private ColorPaintable hitPaintable;
     private StringPaintable stringPaintable;
+
+    private SeaBattleListener listener;
+
+    public void setListener(SeaBattleListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public int getHorizontalCellCount() {
@@ -44,8 +55,7 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
         hitPaintable = new ColorPaintable(new Color(0xffff8080), null);
         stringPaintable = new StringPaintable("", new Color(0xffb0b0b0), null);
 
-        Prize[] prizes = new Prize[10];
-        generateField(prizes);
+        generateField(null);
     }
 
     @Override
@@ -83,7 +93,15 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
         return board[y * height + x];
     }
 
-    private void generateField(Prize[] prizes) {
+    public void generateField(Prize[] prizes) {
+
+        if (prizes == null) {
+            prizes = new Prize[10];
+            for(int i = 0; i < 10; i++) {
+                prizes[i] = new Prize();
+            }
+        }
+
         for(int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 board[y * height + x] = new Tile();
@@ -93,44 +111,12 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
         int x;
         int y;
         for(int i = 0; i < 10; i++) {
-            prizes[i] = new Prize();
             do {
                 x = NumUtils.getRandomInt(width);
                 y = NumUtils.getRandomInt(height);
             } while (!isPrizeNear(x,y));
             getTileAt(x,y).setPrize(prizes[i]);
         }
-    }
-
-    MouseListener mouseListener = new MouseListener() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    };
-
-    public MouseListener getMouseListener() {
-        return mouseListener;
     }
 
     @Override
@@ -144,6 +130,9 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
         if (tile.getState() == Tile.STATE_CLOSED) {
             if (tile.getPrize() == null) {
                 tile.setState(Tile.STATE_OPENED);
+                if (listener != null) {
+                    listener.onTurn(null);
+                }
             } else {
                 tile.setState(Tile.STATE_HIT);
                 for(int i = x - 1; i < x + 2; i++) {
@@ -151,6 +140,12 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
                         if (i >= 0 && i < width && j >= 0 && j < height && !(i == x && j == y)) {
                             getTileAt(i, j).setState(Tile.STATE_OPENED);
                         }
+                    }
+                }
+                if (listener != null) {
+                    listener.onTurn(tile.getPrize());
+                    if (isGameEnded()) {
+                        listener.onGameEnds();
                     }
                 }
             }
@@ -166,6 +161,15 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
                         return false;
                     }
                 }
+            }
+        }
+        return true;
+    }
+
+    public boolean isGameEnded() {
+        for(int i = 0; i < board.length; i++) {
+            if (board[i].getPrize() != null && board[i].getState() == Tile.STATE_CLOSED) {
+                return false;
             }
         }
         return true;
