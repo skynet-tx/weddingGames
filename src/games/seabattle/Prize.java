@@ -1,6 +1,6 @@
 package games.seabattle;
 
-import managers.ImageManager;
+import com.arhiser.wedding.managers.ImageManager;
 
 import javax.swing.*;
 

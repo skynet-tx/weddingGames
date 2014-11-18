@@ -1,15 +1,13 @@
 package games.seabattle;
 
-import utils.NumUtils;
-import widgets.gridview.GridView;
-import widgets.gridview.GridViewAdapter;
-import widgets.stuff.ColorPaintable;
-import widgets.stuff.Paintable;
-import widgets.stuff.StringPaintable;
+import com.arhiser.wedding.utils.NumUtils;
+import com.arhiser.wedding.widgets.gridview.GridView;
+import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
+import com.arhiser.wedding.widgets.stuff.ColorPaintable;
+import com.arhiser.wedding.widgets.stuff.Paintable;
+import com.arhiser.wedding.widgets.stuff.StringPaintable;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * Created by SER on 16.11.2014.
