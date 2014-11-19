@@ -96,7 +96,10 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
-            <properties/>
+            <properties>
+              <opaque value="false"/>
+              <preferredSize width="300" height="427"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="422e3" class="javax.swing.JTable" binding="picTable">
@@ -109,13 +112,20 @@
           </scrollpane>
           <component id="a6da4" class="javax.swing.JButton" binding="resetPrizes">
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <margin top="2" left="14" bottom="2" right="14"/>
               <text value="Сбросить настройки призов"/>
             </properties>
           </component>
+          <vspacer id="4ae6d">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </vspacer>
         </children>
       </grid>
       <grid id="2cd05" layout-manager="GridBagLayout">

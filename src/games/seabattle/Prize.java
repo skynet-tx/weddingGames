@@ -36,7 +36,7 @@ public class Prize {
                 if (AppModel.getInstance().seaBattlePrefs.defaultImageFile.length() > 0) {
                     prize.picture = ImageManager.getImageByFileName(AppModel.getInstance().seaBattlePrefs.defaultImageFile);
                 } else {
-                    prize.picture = ImageManager.getImageByResourceName("default_image");
+                    prize.picture = ImageManager.getImageByResourceName("default_image.png");
                 }
             }
             prizes[i] = prize;
