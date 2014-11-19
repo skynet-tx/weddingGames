@@ -1,6 +1,11 @@
 package com.arhiser.wedding.dialogs;
 
+import com.arhiser.wedding.AppModel;
+import com.arhiser.wedding.Application;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 
 /**
  * Created by SER on 11.11.2014.
@@ -57,4 +62,20 @@ public class DialogFactory {
         prizeDialog.show(name, image);
     }
 
+    public File showImageFileDialog() {
+        JFileChooser chooser = new JFileChooser();
+        if (AppModel.getInstance().lastFileDir.length() > 0) {
+            chooser.setCurrentDirectory(new File(AppModel.getInstance().lastFileDir));
+        }
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Изображение в формате jpg, png", "jpg", "png");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(Application.mainWindow);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            File selected = chooser.getSelectedFile();
+            AppModel.getInstance().lastFileDir = selected.getAbsolutePath();
+            return selected;
+        }
+        return null;
+    }
 }

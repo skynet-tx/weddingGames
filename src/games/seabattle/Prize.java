@@ -1,5 +1,6 @@
 package games.seabattle;
 
+import com.arhiser.wedding.AppModel;
 import com.arhiser.wedding.managers.ImageManager;
 
 import javax.swing.*;
@@ -22,5 +23,24 @@ public class Prize {
 
     public String getName() {
         return name;
+    }
+
+    public static Prize[] getPrizes() {
+        Prize[] prizes = new Prize[10];
+        for(int i = 0; i < 10; i++) {
+            Prize prize = new Prize();
+            prize.name = AppModel.getInstance().seaBattlePrefs.prizes[i].prizeName;
+            if (AppModel.getInstance().seaBattlePrefs.prizes[i].prizeImageFile.length() > 0) {
+                prize.picture = ImageManager.getImageByFileName(AppModel.getInstance().seaBattlePrefs.prizes[i].prizeImageFile);
+            } else {
+                if (AppModel.getInstance().seaBattlePrefs.defaultImageFile.length() > 0) {
+                    prize.picture = ImageManager.getImageByFileName(AppModel.getInstance().seaBattlePrefs.defaultImageFile);
+                } else {
+                    prize.picture = ImageManager.getImageByResourceName("default_image");
+                }
+            }
+            prizes[i] = prize;
+        }
+        return prizes;
     }
 }

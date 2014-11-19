@@ -11,6 +11,7 @@ public class AppModel {
 
     private static AppModel instance;
 
+    public String lastFileDir = "" ;
 
     public SeaBattlePrefs seaBattlePrefs;
 
@@ -63,6 +64,10 @@ public class AppModel {
         public PrizeParam[] prizes = new PrizeParam[10];
 
         SeaBattlePrefs() {
+            resetPrizes();
+        }
+
+        public void resetPrizes() {
             for (int i = 0; i < 10; i++){
                 prizes[i] = new PrizeParam();
             }
@@ -70,7 +75,7 @@ public class AppModel {
     }
 
     public class PrizeParam {
-        String prizeName = "Приз";
-        String prizeImageFile = "";
+        public String prizeName = "Приз";
+        public String prizeImageFile = "";
     }
 }

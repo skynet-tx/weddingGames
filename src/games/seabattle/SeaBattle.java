@@ -53,7 +53,7 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
         hitPaintable = new ColorPaintable(new Color(0xffff8080), null);
         stringPaintable = new StringPaintable("", new Color(0xffb0b0b0), null);
 
-        generateField(null);
+        generateField(Prize.getPrizes());
     }
 
     @Override
