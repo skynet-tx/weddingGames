@@ -6,12 +6,13 @@
 <JVMSearchPath>jdkpath</JVMSearchPath>
 <JVMSearchPath>exepath</JVMSearchPath>
 <JVMSearchPath>jview</JVMSearchPath>
+<arguments></arguments>
 <currentDirectory>${EXECUTABLEPATH}</currentDirectory>
 <embeddedJar>true</embeddedJar>
 <executableName>..\..\ggg\out.exe</executableName>
 <initialMemoryHeap>-1</initialMemoryHeap>
 <jarLocation>out\artifacts\wedding_jar\wedding.jar</jarLocation>
-<mainClassName>Application</mainClassName>
+<mainClassName>com.arhiser.wedding.Application</mainClassName>
 <maximumMemoryHeap>-1</maximumMemoryHeap>
 <maximumVersion></maximumVersion>
 <minimumVersion>1.6</minimumVersion>

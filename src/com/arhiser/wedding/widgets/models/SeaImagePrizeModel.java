@@ -45,16 +45,18 @@ public class SeaImagePrizeModel extends DefaultTableModel implements CellEditorL
             case 1:
                 return AppModel.getInstance().seaBattlePrefs.prizes[rowIndex].prizeName;
             case 2:
+
+            if (AppModel.getInstance().seaBattlePrefs.prizes[rowIndex].prizeImageFile.length() > 0) {
+                return new ImagePaintable(ImageManager.getImageByFileName(AppModel.getInstance().seaBattlePrefs.prizes[rowIndex].prizeImageFile));
+            } else {
                 if (AppModel.getInstance().seaBattlePrefs.defaultImageFile.length() > 0) {
-                    if (AppModel.getInstance().seaBattlePrefs.prizes[rowIndex].prizeImageFile.length() > 0) {
-                        return new ImagePaintable(ImageManager.getImageByFileName(AppModel.getInstance().seaBattlePrefs.prizes[rowIndex].prizeImageFile));
-                    } else {
-                        return new ImagePaintable(ImageManager.getImageByFileName(AppModel.getInstance().seaBattlePrefs.defaultImageFile));
-                    }
+                    return new ImagePaintable(ImageManager.getImageByFileName(AppModel.getInstance().seaBattlePrefs.defaultImageFile));
                 } else {
                     return new ImagePaintable(ImageManager.getImageByResourceName("default_image.png"));
                 }
+            }
         }
+
         return null;
     }
 
