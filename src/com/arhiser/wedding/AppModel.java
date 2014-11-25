@@ -1,13 +1,15 @@
 package com.arhiser.wedding;
 
+import com.arhiser.wedding.dialogs.DialogFactory;
 import com.google.gson.Gson;
 
+import javax.swing.*;
 import java.io.*;
 
 /**
  * Created by SER on 18.11.2014.
  */
-public class AppModel {
+public class AppModel implements Serializable {
 
     private static AppModel instance;
 
@@ -19,10 +21,17 @@ public class AppModel {
         File file = new File("appModel.json");
         if (file.exists()) {
             try {
+                /*
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 instance = new Gson().fromJson(reader, AppModel.class);
                 reader.close();
-            } catch (IOException e) {
+                */
+                InputStream fileis = new FileInputStream(file);
+                InputStream buffer = new BufferedInputStream(fileis);
+                ObjectInput input = new ObjectInputStream (buffer);
+                instance = (AppModel)input.readObject();
+                fileis.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
@@ -43,11 +52,18 @@ public class AppModel {
             file.delete();
         }
         try {
-            file.createNewFile();
+            /*
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(new Gson().toJson(instance));
             writer.flush();
             writer.close();
+            */
+            OutputStream fileos = new FileOutputStream(file);
+            OutputStream buffer = new BufferedOutputStream(fileos);
+            ObjectOutput output = new ObjectOutputStream(buffer);
+            output.writeObject(instance);
+            output.flush();
+            output.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,7 +73,7 @@ public class AppModel {
         seaBattlePrefs = new SeaBattlePrefs();
     }
 
-    public class SeaBattlePrefs {
+    public class SeaBattlePrefs implements Serializable {
         public String defaultWinMessage = "Поздравляю, вы выиграли!";
         public String defaultImageFile = "";
 
@@ -74,7 +90,7 @@ public class AppModel {
         }
     }
 
-    public class PrizeParam {
+    public class PrizeParam implements Serializable {
         public String prizeName = "Приз";
         public String prizeImageFile = "";
     }

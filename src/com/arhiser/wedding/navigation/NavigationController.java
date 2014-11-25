@@ -49,6 +49,7 @@ public class NavigationController {
     public void switchScreen(int formId) {
         ManagedForm form = getScreen(formId);
         host.setContentPane(form.getRootContainer());
+        form.onShow();
         host.setTitle(form.getTitle());
         host.getContentPane().revalidate();
         host.getContentPane().repaint();

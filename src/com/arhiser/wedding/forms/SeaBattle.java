@@ -83,7 +83,7 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
     }
 
     public void gameRestart() {
-        seaBattle.generateField(null);
+        seaBattle.generateField(Prize.getPrizes());
         turnCount = 0;
         prizeCount = 0;
         gameInProgress = true;
@@ -94,5 +94,10 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
     private void updateUI() {
         turns.setText("Ходов: " + turnCount);
         prizes.setText("Сбито кораблей: " + prizeCount);
+    }
+
+    @Override
+    public void onShow() {
+        gameRestart();
     }
 }

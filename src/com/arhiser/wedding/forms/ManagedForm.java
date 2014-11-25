@@ -9,4 +9,5 @@ public abstract class ManagedForm {
     public void init(){}
     public abstract String getTitle();
     public abstract Container getRootContainer();
+    public void onShow(){};
 }
