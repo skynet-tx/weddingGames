@@ -26,8 +26,8 @@ public class Prize {
     }
 
     public static Prize[] getPrizes() {
-        Prize[] prizes = new Prize[10];
-        for(int i = 0; i < 10; i++) {
+        Prize[] prizes = new Prize[AppModel.getInstance().seaBattlePrefs.prizeCount];
+        for(int i = 0; i < prizes.length; i++) {
             Prize prize = new Prize();
             prize.name = AppModel.getInstance().seaBattlePrefs.prizes[i].prizeName;
             if (AppModel.getInstance().seaBattlePrefs.prizes[i].prizeImageFile.length() > 0) {

@@ -29,7 +29,7 @@ public class SeaImagePrizeModel extends DefaultTableModel implements CellEditorL
 
     @Override
     public int getRowCount() {
-        return 10;
+        return AppModel.getInstance().seaBattlePrefs.prizeCount;
     }
 
     @Override
@@ -128,5 +128,9 @@ public class SeaImagePrizeModel extends DefaultTableModel implements CellEditorL
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    public void refresh() {
+        fireTableDataChanged();
     }
 }

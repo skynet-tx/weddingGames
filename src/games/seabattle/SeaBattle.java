@@ -1,5 +1,6 @@
 package games.seabattle;
 
+import com.arhiser.wedding.AppModel;
 import com.arhiser.wedding.utils.NumUtils;
 import com.arhiser.wedding.widgets.gridview.GridView;
 import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
@@ -94,8 +95,8 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
     public void generateField(Prize[] prizes) {
 
         if (prizes == null) {
-            prizes = new Prize[10];
-            for(int i = 0; i < 10; i++) {
+            prizes = new Prize[AppModel.getInstance().seaBattlePrefs.prizeCount];
+            for(int i = 0; i < prizes.length; i++) {
                 prizes[i] = new Prize();
             }
         }
@@ -108,7 +109,7 @@ public class SeaBattle extends GridViewAdapter implements GridView.CellClickList
 
         int x;
         int y;
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < prizes.length; i++) {
             do {
                 x = NumUtils.getRandomInt(width);
                 y = NumUtils.getRandomInt(height);

@@ -4,6 +4,7 @@ import com.arhiser.wedding.AppModel;
 import com.arhiser.wedding.dialogs.DialogFactory;
 import com.arhiser.wedding.managers.ImageManager;
 import com.arhiser.wedding.navigation.NavigationController;
+import com.arhiser.wedding.utils.StringUtils;
 import com.arhiser.wedding.widgets.models.SeaImagePrizeModel;
 import com.arhiser.wedding.widgets.stuff.ImagePaintable;
 
@@ -26,6 +27,7 @@ public class SeabattlePrefs extends ManagedForm implements ActionListener {
     private JTable picTable;
     private JLabel iconDefault;
     private JButton resetPrizes;
+    private JTextField prizeCountField;
 
     private SeaImagePrizeModel tableModel;
 
@@ -54,8 +56,13 @@ public class SeabattlePrefs extends ManagedForm implements ActionListener {
         picTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-        rightRenderer.setHorizontalAlignment( JLabel.CENTER );
+        rightRenderer.setHorizontalAlignment(JLabel.CENTER);
         picTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+
+        prizeCountField.setInputVerifier(new PrizeCountInputVerifer());
+        prizeCountField.setText(Integer.toString(AppModel.getInstance().seaBattlePrefs.prizeCount));
+        prizeCountField.addActionListener(this);
+
         modelToGui();
     }
 
@@ -69,10 +76,14 @@ public class SeabattlePrefs extends ManagedForm implements ActionListener {
         if (e.getSource() == loadDefaultPicture) {
             loadDefaultImage();
         }
-        if(e.getSource() == resetPrizes) {
+        if (e.getSource() == resetPrizes) {
             AppModel.getInstance().seaBattlePrefs.resetPrizes();
             AppModel.save();
             modelToGui();
+        }
+        if(e.getSource() == prizeCountField) {
+            checkPrizeCount();
+            KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
         }
     }
 
@@ -105,6 +116,26 @@ public class SeabattlePrefs extends ManagedForm implements ActionListener {
             appModel.seaBattlePrefs.defaultImageFile = file.getName();
             AppModel.save();
             modelToGui();
+        }
+    }
+
+    private void checkPrizeCount() {
+        String number = prizeCountField.getText();
+        int count;
+        if (StringUtils.isNumber(number) && (count = Integer.parseInt(number)) <= 10 && count >= 5) {
+            AppModel.getInstance().seaBattlePrefs.prizeCount = count;
+            AppModel.save();
+            tableModel.refresh();
+        } else {
+            prizeCountField.setText(Integer.toString(AppModel.getInstance().seaBattlePrefs.prizeCount));
+        }
+    }
+
+    class PrizeCountInputVerifer extends InputVerifier {
+        @Override
+        public boolean verify(JComponent input) {
+            checkPrizeCount();
+            return true;
         }
     }
 
