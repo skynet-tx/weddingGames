@@ -2,9 +2,9 @@ package com.arhiser.wedding.forms;
 
 import com.arhiser.wedding.dialogs.DialogFactory;
 import com.arhiser.wedding.managers.SoundManager;
-import games.seabattle.Prize;
 import com.arhiser.wedding.navigation.NavigationController;
 import com.arhiser.wedding.widgets.gridview.GridView;
+import games.seabattle.Prize;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,12 +71,14 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
     @Override
     public void onTurn(Prize prize) {
         turnCount++;
+        updateUI();
         if (prize != null) {
             prizeCount++;
+            SoundManager.playResource("explosion.wav");
             DialogFactory.getInstance().showPrizeDialog(prize.getName(), prize.getPicture());
+        } else {
+            SoundManager.playResource("shot.wav");
         }
-        updateUI();
-        SoundManager.playResource("sample.wav");
     }
 
     @Override

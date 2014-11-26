@@ -28,7 +28,7 @@ public class SoundManager {
             }
             Clip clip = cache.get(file);
             clip.setFramePosition(0);
-            clip.loop(0);
+            clip.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
