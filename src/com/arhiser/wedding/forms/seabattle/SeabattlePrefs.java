@@ -1,7 +1,8 @@
-package com.arhiser.wedding.forms;
+package com.arhiser.wedding.forms.seabattle;
 
 import com.arhiser.wedding.AppModel;
 import com.arhiser.wedding.dialogs.DialogFactory;
+import com.arhiser.wedding.forms.ManagedForm;
 import com.arhiser.wedding.managers.ImageManager;
 import com.arhiser.wedding.navigation.NavigationController;
 import com.arhiser.wedding.utils.StringUtils;

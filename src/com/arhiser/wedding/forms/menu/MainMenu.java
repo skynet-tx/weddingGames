@@ -1,5 +1,6 @@
-package com.arhiser.wedding.forms;
+package com.arhiser.wedding.forms.menu;
 
+import com.arhiser.wedding.forms.ManagedForm;
 import com.arhiser.wedding.managers.ImageManager;
 import com.arhiser.wedding.navigation.NavigationController;
 
@@ -49,7 +50,7 @@ public class MainMenu extends ManagedForm implements ActionListener {
             NavigationController.getInstance().switchScreen(NavigationController.SCREEN_SEABATTLE);
         }
         if (e.getSource() == findMoney) {
-
+            NavigationController.getInstance().switchScreen(NavigationController.SCREEN_SEEKVODKA);
         }
         if (e.getSource() == prefs) {
             NavigationController.getInstance().switchScreen(NavigationController.SCREEN_PREFERENCES);

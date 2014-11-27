@@ -13,7 +13,7 @@ import java.awt.*;
 /**
  * Created by SER on 16.11.2014.
  */
-public class SeaBattle extends GridViewAdapter implements GridView.CellClickListener {
+public class SeaBattle extends GridViewAdapter<GridView> implements GridView.CellClickListener {
 
     public interface SeaBattleListener {
         public void onTurn(Prize prize);

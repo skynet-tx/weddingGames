@@ -5,9 +5,9 @@ import com.arhiser.wedding.widgets.stuff.Paintable;
 /**
  * Created by SER on 06.11.2014.
  */
-abstract public class GridViewAdapter {
+abstract public class GridViewAdapter <T extends GridView> {
 
-    protected GridView host;
+    protected T host;
 
     abstract public int getHorizontalCellCount();
     abstract public int getVerticalCellCount();
@@ -18,7 +18,7 @@ abstract public class GridViewAdapter {
         host.notifyChanged();
     }
 
-    public void setHost(GridView host) {
+    public void setHost(T host) {
         this.host = host;
     }
 }

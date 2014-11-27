@@ -88,6 +88,7 @@ public class AppModel implements Serializable {
         public PrizeParam[] prizes = new PrizeParam[10];
 
         SeaBattlePrefs() {
+            prizeCount = 10;
             resetPrizes();
         }
 

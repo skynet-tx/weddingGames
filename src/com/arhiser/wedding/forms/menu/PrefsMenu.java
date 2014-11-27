@@ -1,5 +1,6 @@
-package com.arhiser.wedding.forms;
+package com.arhiser.wedding.forms.menu;
 
+import com.arhiser.wedding.forms.ManagedForm;
 import com.arhiser.wedding.navigation.NavigationController;
 
 import javax.swing.*;
@@ -42,7 +43,7 @@ public class PrefsMenu  extends ManagedForm implements ActionListener{
             NavigationController.getInstance().switchScreen(NavigationController.SCREEN_PREFERENCES_SEEBATTLE);
         }
         if (e.getSource() == seekHidden) {
-
+            NavigationController.getInstance().switchScreen(NavigationController.SCREEN_PREFERENCES_SEEKVODKA);
         }
     }
 }

@@ -1,9 +1,11 @@
-package com.arhiser.wedding.forms;
+package com.arhiser.wedding.forms.seabattle;
 
 import com.arhiser.wedding.dialogs.DialogFactory;
+import com.arhiser.wedding.forms.ManagedForm;
 import com.arhiser.wedding.managers.SoundManager;
 import com.arhiser.wedding.navigation.NavigationController;
 import com.arhiser.wedding.widgets.gridview.GridView;
+import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
 import games.seabattle.Prize;
 
 import javax.swing.*;
@@ -22,7 +24,7 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
     private JButton restartGame;
     private JLabel turns;
     private JLabel prizes;
-    public GridView gridView;
+    public GridView<GridViewAdapter> gridView;
 
     games.seabattle.SeaBattle seaBattle;
 
@@ -32,7 +34,7 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
 
     @Override
     public void init() {
-        gridView = new GridView();
+        gridView = new GridView<GridViewAdapter>();
         game.add(gridView);
         gridView.setBoundColor(new Color(0xffa8a8f0));
         seaBattle = new games.seabattle.SeaBattle();

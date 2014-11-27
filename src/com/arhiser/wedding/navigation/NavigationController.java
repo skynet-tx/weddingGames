@@ -1,6 +1,12 @@
 package com.arhiser.wedding.navigation;
 
 import com.arhiser.wedding.forms.*;
+import com.arhiser.wedding.forms.menu.MainMenu;
+import com.arhiser.wedding.forms.menu.PrefsMenu;
+import com.arhiser.wedding.forms.seabattle.SeaBattle;
+import com.arhiser.wedding.forms.seabattle.SeabattlePrefs;
+import com.arhiser.wedding.forms.seekvodka.SeekVodka;
+import com.arhiser.wedding.forms.seekvodka.SeekVodkaPrefs;
 
 import javax.swing.*;
 
@@ -13,12 +19,17 @@ public class NavigationController {
     public static final int SCREEN_SEABATTLE = 2;
     public static final int SCREEN_PREFERENCES = 3;
     public static final int SCREEN_PREFERENCES_SEEBATTLE = 4;
+    public static final int SCREEN_PREFERENCES_SEEKVODKA = 5;
+    public static final int SCREEN_SEEKVODKA = 6;
 
     private JFrame host;
 
     private SeaBattle seaBattle;
+    private SeekVodka seekVodka;
+
     private MainMenu mainMenu;
     private PrefsMenu prefsMenu;
+    private SeekVodkaPrefs seekVodkaPrefs;
     private SeabattlePrefs seaPrefs;
 
     private static NavigationController instance;
@@ -44,6 +55,12 @@ public class NavigationController {
 
         seaPrefs = new SeabattlePrefs();
         seaPrefs.init();
+
+        seekVodka = new SeekVodka();
+        seekVodka.init();
+
+        seekVodkaPrefs = new SeekVodkaPrefs();
+        seekVodkaPrefs.init();
     }
 
     public void switchScreen(int formId) {
@@ -65,6 +82,10 @@ public class NavigationController {
                 return prefsMenu;
             case SCREEN_PREFERENCES_SEEBATTLE:
                 return seaPrefs;
+            case SCREEN_PREFERENCES_SEEKVODKA:
+                return seekVodkaPrefs;
+            case SCREEN_SEEKVODKA:
+                return seekVodka;
         }
         return null;
     }

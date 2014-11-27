@@ -1,5 +1,7 @@
 package com.arhiser.wedding.widgets.gridview;
 
+import com.arhiser.wedding.widgets.stuff.ColorPaintable;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -8,17 +10,17 @@ import java.awt.event.MouseListener;
 /**
  * Created by SER on 06.11.2014.
  */
-public class GridView extends JComponent {
+public class GridView <T extends GridViewAdapter> extends JComponent {
 
-    private GridViewAdapter adapter;
-    private Color boundColor = new Color(0xff000000);
-    private Color backgroundColor = new Color(0xffb0b0b0);
-    private int boundWidth = 2;
+    protected T adapter;
+    protected Color boundColor = new Color(0xff000000);
+    protected ColorPaintable backgroundColor = new ColorPaintable( new Color(0xffb0b0b0), null);
+    protected int boundWidth = 2;
 
-    private float cellWidth;
-    private float cellWidthFull;
-    private float cellHeight;
-    private float cellHeightFull;
+    protected float cellWidth;
+    protected float cellWidthFull;
+    protected float cellHeight;
+    protected float cellHeightFull;
 
     private CellClickListener listener;
 
@@ -47,8 +49,7 @@ public class GridView extends JComponent {
 
     @Override
     public void paint(Graphics g) {
-        g.setColor(backgroundColor);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        backgroundColor.onPaint(g);
         if (adapter == null) {
             return;
         }
@@ -56,10 +57,10 @@ public class GridView extends JComponent {
         g.setColor(boundColor);
 
         for(int y = 0; y <= adapter.getVerticalCellCount(); y++) {
-            g.fillRect(0, (int)Math.ceil(y * cellHeightFull), getWidth(), boundWidth);
+            g.fillRect(0, (int)Math.ceil(y * cellHeightFull), (int)(adapter.getHorizontalCellCount() * cellWidthFull), boundWidth);
         }
         for(int x = 0; x <= adapter.getHorizontalCellCount(); x++) {
-            g.fillRect((int)Math.ceil(x * cellWidthFull), 0, boundWidth, getHeight());
+            g.fillRect((int)Math.ceil(x * cellWidthFull), 0, boundWidth, (int)(adapter.getVerticalCellCount() * cellHeightFull));
         }
 
         for(int y = 0; y < adapter.getVerticalCellCount(); y++) {
@@ -87,15 +88,16 @@ public class GridView extends JComponent {
             cellHeightFull = (float)(getHeight() - boundWidth) / yCount;
             cellWidth = cellWidthFull - boundWidth;
             cellHeight = cellHeightFull - boundWidth;
+            backgroundColor.setBounds(new Rectangle(0, 0, getWidth(), getHeight()));
         }
         invalidate();
     }
 
-    public GridViewAdapter getAdapter() {
+    public T getAdapter() {
         return adapter;
     }
 
-    public void setAdapter(GridViewAdapter adapter) {
+    public void setAdapter(T adapter) {
         this.adapter = adapter;
         adapter.setHost(this);
         notifyChanged();

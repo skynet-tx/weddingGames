@@ -24,7 +24,9 @@ public class ColorPaintable extends Paintable {
 
     @Override
     public void onPaint(Graphics g) {
-        g.setColor(color);
-        g.fillRect(rect.x, rect.y, rect.width, rect.height);
+        if ((color.getBlue() + color.getRed() + color.getGreen()) > 0) {
+            g.setColor(color);
+            g.fillRect(rect.x, rect.y, rect.width, rect.height);
+        }
     }
 }
