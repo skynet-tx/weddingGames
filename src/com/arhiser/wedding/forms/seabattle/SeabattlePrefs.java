@@ -123,7 +123,7 @@ public class SeabattlePrefs extends ManagedForm implements ActionListener {
     private void checkPrizeCount() {
         String number = prizeCountField.getText();
         int count;
-        if (StringUtils.isNumber(number) && (count = Integer.parseInt(number)) <= 10 && count >= 5) {
+        if (StringUtils.isNumber(number) && (count = Integer.parseInt(number)) <= 17 && count >= 5) {
             AppModel.getInstance().seaBattlePrefs.prizeCount = count;
             AppModel.save();
             tableModel.refresh();

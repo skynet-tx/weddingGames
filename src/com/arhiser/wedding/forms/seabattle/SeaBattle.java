@@ -2,10 +2,12 @@ package com.arhiser.wedding.forms.seabattle;
 
 import com.arhiser.wedding.dialogs.DialogFactory;
 import com.arhiser.wedding.forms.ManagedForm;
+import com.arhiser.wedding.managers.ImageManager;
 import com.arhiser.wedding.managers.SoundManager;
 import com.arhiser.wedding.navigation.NavigationController;
 import com.arhiser.wedding.widgets.gridview.GridView;
 import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
+import com.arhiser.wedding.widgets.stuff.ImagePaintable;
 import games.seabattle.Prize;
 
 import javax.swing.*;
@@ -24,6 +26,7 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
     private JButton restartGame;
     private JLabel turns;
     private JLabel prizes;
+    private JLabel shipImage;
     public GridView<GridViewAdapter> gridView;
 
     games.seabattle.SeaBattle seaBattle;
@@ -36,14 +39,15 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
     public void init() {
         gridView = new GridView<GridViewAdapter>();
         game.add(gridView);
-        gridView.setBoundColor(new Color(0xffa8a8f0));
+        gridView.setBoundColor(new Color(0xffb4b4ff));
         seaBattle = new games.seabattle.SeaBattle();
         seaBattle.setListener(this);
         gridView.setListener(seaBattle);
         gridView.setAdapter(seaBattle);
         back.addActionListener(this);
         restartGame.addActionListener(this);
-
+        ImagePaintable shipPaintable = new ImagePaintable(ImageManager.getImageByResourceName("fregat_samson.jpg"));
+        shipImage.setIcon(shipPaintable);
     }
 
     @Override

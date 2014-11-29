@@ -19,6 +19,8 @@ import java.io.Serializable;
  */
 public class AppModel implements Serializable {
 
+    public static final int PRIZE_COUNT = 17;
+
     private static AppModel instance;
 
     public String lastFileDir = "" ;
@@ -85,7 +87,7 @@ public class AppModel implements Serializable {
         public String defaultWinMessage = "Поздравляю, вы выиграли!";
         public String defaultImageFile = "";
         public int prizeCount;
-        public PrizeParam[] prizes = new PrizeParam[10];
+        public PrizeParam[] prizes = new PrizeParam[PRIZE_COUNT];
 
         SeaBattlePrefs() {
             prizeCount = 10;
@@ -93,7 +95,7 @@ public class AppModel implements Serializable {
         }
 
         public void resetPrizes() {
-            for (int i = 0; i < 10; i++){
+            for (int i = 0; i < PRIZE_COUNT; i++){
                 prizes[i] = new PrizeParam();
             }
         }

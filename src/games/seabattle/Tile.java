@@ -6,7 +6,8 @@ package games.seabattle;
 public class Tile {
     public static final int STATE_CLOSED = 1;
     public static final int STATE_OPENED = 2;
-    public static final int STATE_HIT = 3;
+    public static final int STATE_OPENED_AUTO = 3;
+    public static final int STATE_HIT = 4;
 
     private int state = STATE_CLOSED;
     private Prize prize = null;

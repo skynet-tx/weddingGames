@@ -23,8 +23,8 @@ public class StringPaintable extends ColorPaintable {
         if (text.length() == 0) {
             return;
         }
-        g.setColor(new Color(0xFF7070a0));
-        g.setFont(new Font("Arial", Font.PLAIN, 30));
+        g.setColor(new Color(0xFF000000));
+        g.setFont(new Font("Arial", Font.BOLD, 30));
         FontMetrics metrics = g.getFontMetrics();
         int height = metrics.getHeight();
         int width = (int)metrics.getStringBounds(text ,g).getWidth();

@@ -132,7 +132,7 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Количество призов (от 5 до 10): "/>
+              <text value="Количество призов (от 5 до 17): "/>
             </properties>
           </component>
           <component id="227db" class="javax.swing.JTextField" binding="prizeCountField">

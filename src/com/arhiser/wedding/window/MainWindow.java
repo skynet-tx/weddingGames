@@ -1,5 +1,6 @@
 package com.arhiser.wedding.window;
 
+import com.arhiser.wedding.managers.ImageManager;
 import com.arhiser.wedding.navigation.NavigationController;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class MainWindow extends JFrame implements ActionListener {
         setMinimumSize(new Dimension(800, 750));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(ImageManager.iconToImage(ImageManager.getImageByResourceName("appIcon.png")));
 
         NavigationController.init(this);
 

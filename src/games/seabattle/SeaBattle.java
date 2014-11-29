@@ -7,6 +7,8 @@ import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
 import com.arhiser.wedding.widgets.stuff.ColorPaintable;
 import com.arhiser.wedding.widgets.stuff.Paintable;
 import com.arhiser.wedding.widgets.stuff.StringPaintable;
+import games.seabattle.paintables.HitPaintable;
+import games.seabattle.paintables.OpenedPaintable;
 
 import java.awt.*;
 
@@ -28,8 +30,9 @@ public class SeaBattle extends GridViewAdapter<GridView> implements GridView.Cel
     public Tile[] board = new Tile[width * height];
 
     private ColorPaintable closedPaintable;
-    private ColorPaintable openedPaintable;
-    private ColorPaintable hitPaintable;
+    private OpenedPaintable openedPaintable;
+    private OpenedPaintable openedPaintableAuto;
+    private HitPaintable hitPaintable;
     private StringPaintable stringPaintable;
 
     private SeaBattleListener listener;
@@ -49,17 +52,18 @@ public class SeaBattle extends GridViewAdapter<GridView> implements GridView.Cel
     }
 
     public SeaBattle() {
-        openedPaintable = new ColorPaintable(new Color(0xffffff), null);
-        closedPaintable = new ColorPaintable(new Color(0xffc0c0c0), null);
-        hitPaintable = new ColorPaintable(new Color(0xffff8080), null);
-        stringPaintable = new StringPaintable("", new Color(0xffb0b0b0), null);
+        openedPaintable = new OpenedPaintable(new Color(0xff8b8b8b), null);
+        openedPaintableAuto = new OpenedPaintable(new Color(0xffc6c6c6), null);
+        closedPaintable = new ColorPaintable(new Color(0xffffffff), null);
+        hitPaintable = new HitPaintable(null);
+        stringPaintable = new StringPaintable("", new Color(0xffebeef3), null);
 
         generateField(Prize.getPrizes());
     }
 
     @Override
     public Paintable getPaintableForCell(int x, int y) {
-        ColorPaintable paintable = null;
+        Paintable paintable = null;
         if (x == 0 && y == 0) {
             paintable = stringPaintable;
             stringPaintable.setText("");
@@ -77,6 +81,9 @@ public class SeaBattle extends GridViewAdapter<GridView> implements GridView.Cel
                     break;
                 case Tile.STATE_OPENED:
                     paintable = openedPaintable;
+                    break;
+                case Tile.STATE_OPENED_AUTO:
+                    paintable = openedPaintableAuto;
                     break;
                 case Tile.STATE_HIT:
                     paintable = hitPaintable;
@@ -137,7 +144,9 @@ public class SeaBattle extends GridViewAdapter<GridView> implements GridView.Cel
                 for(int i = x - 1; i < x + 2; i++) {
                     for(int j = y - 1; j < y + 2; j++) {
                         if (i >= 0 && i < width && j >= 0 && j < height && !(i == x && j == y)) {
-                            getTileAt(i, j).setState(Tile.STATE_OPENED);
+                            if (getTileAt(i, j).getState() == Tile.STATE_CLOSED) {
+                                getTileAt(i, j).setState(Tile.STATE_OPENED_AUTO);
+                            }
                         }
                     }
                 }
