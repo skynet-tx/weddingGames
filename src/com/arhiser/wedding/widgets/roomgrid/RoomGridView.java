@@ -3,6 +3,7 @@ package com.arhiser.wedding.widgets.roomgrid;
 import com.arhiser.wedding.widgets.gridview.GridView;
 import com.arhiser.wedding.widgets.stuff.ColorPaintable;
 import games.seekvodka.Room;
+import games.seekvodka.RoomsAdapter;
 import games.seekvodka.RoomsModel;
 
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 /**
  * Created by SER on 27.11.2014.
  */
-public class RoomGridView extends GridView<RoomsModel> {
+public class RoomGridView extends GridView<RoomsAdapter> {
 
     public RoomGridView() {
         super();
@@ -44,11 +45,13 @@ public class RoomGridView extends GridView<RoomsModel> {
 
     @Override
     public void paint(Graphics g) {
+        /*
         adapter.recalculateRoomScreenBounds();
         Room[] rooms = adapter.getRooms();
         for(int i = 0; i < rooms.length; i++) {
             rooms[i].colorPaintable.onPaint(g);
         }
         super.paint(g);
+        */
     }
 }

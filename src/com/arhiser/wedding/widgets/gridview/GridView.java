@@ -43,8 +43,8 @@ public class GridView <T extends GridViewAdapter> extends JComponent {
         notifyChanged();
     }
 
-    public void setBoundColor(Color boundColor) {
-        this.boundColor = boundColor;
+    public void setBackgroundColor(Color boundColor) {
+        backgroundColor.setColor(boundColor);
     }
 
     @Override
@@ -52,15 +52,6 @@ public class GridView <T extends GridViewAdapter> extends JComponent {
         backgroundColor.onPaint(g);
         if (adapter == null) {
             return;
-        }
-
-        g.setColor(boundColor);
-
-        for(int y = 0; y <= adapter.getVerticalCellCount(); y++) {
-            g.fillRect(0, (int)Math.ceil(y * cellHeightFull), (int)(adapter.getHorizontalCellCount() * cellWidthFull), boundWidth);
-        }
-        for(int x = 0; x <= adapter.getHorizontalCellCount(); x++) {
-            g.fillRect((int)Math.ceil(x * cellWidthFull), 0, boundWidth, (int)(adapter.getVerticalCellCount() * cellHeightFull));
         }
 
         for(int y = 0; y < adapter.getVerticalCellCount(); y++) {

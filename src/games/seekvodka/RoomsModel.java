@@ -1,66 +1,108 @@
 package games.seekvodka;
 
+import com.arhiser.wedding.managers.ImageManager;
 import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
 import com.arhiser.wedding.widgets.roomgrid.RoomGridView;
 import com.arhiser.wedding.widgets.stuff.ColorPaintable;
 import com.arhiser.wedding.widgets.stuff.Paintable;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
  * Created by SER on 27.11.2014.
  */
-public class RoomsModel extends GridViewAdapter<RoomGridView>{
-    int width = 7;
-    int height = 5;
+public class RoomsModel {
 
-    ColorPaintable colorPaintable = new ColorPaintable(new Color(0x0), null);
+    public static final int TYPE_SMALL = 1;
+    public static final int TYPE_MEDIUM = 2;
+    public static final int TYPE_LARGE = 3;
+
+    private static final int COLOR_BALCONY = 0xffffc0e4;
+    private static final int COLOR_WC = 0xffdec0ff;
+    private static final int COLOR_KITCHEN = 0xffc0d5ff;
+    private static final int COLOR_HALL = 0xffc0feff;
+    private static final int COLOR_ROOM1 = 0xffc0ffd3;
+    private static final int COLOR_ROOM2 = 0xfff2ffc0;
+    private static final int COLOR_ROOM3 = 0xffffdfc0;
+
+    private int width;
+    private int height;
 
     Room [] rooms;
 
-    @Override
-    public int getHorizontalCellCount() {
-        return width;
-    }
+    Icon defaultIcon = ImageManager.getImageByResourceName("default_image.png");
 
-    @Override
-    public int getVerticalCellCount() {
-        return height;
-    }
+    protected void initModel(int type) {
+        switch (type) {
+            case TYPE_SMALL:
+                width = 4;
+                height = 4;
 
-    @Override
-    public Paintable getPaintableForCell(int x, int y) {
-        colorPaintable.setBounds(host.getCellRectangle(x, y));
-        return colorPaintable;
-    }
+                rooms = new Room[5];
+                rooms[0] = new Room("лоджия", 0, 0, 1, 2, COLOR_BALCONY);
+                rooms[1] = new Room("сан. узел", 0, 2, 1, 2, COLOR_WC);
+                rooms[2] = new Room("кухня", 1, 0, 1, 2, COLOR_KITCHEN);
+                rooms[3] = new Room("корридор", 1, 2, 1, 2, COLOR_HALL);
+                rooms[4] = new Room("комната", 2, 0, 2, 4, COLOR_ROOM1);
 
-    public RoomsModel() {
-        rooms = new Room[6];
-        rooms[0] = new Room("балкон", 0, 0, 1, 5, 0xfff0fff0);
-        rooms[1] = new Room("гостинная", 1, 0, 4, 3, 0xffa0ffa0);
-        rooms[2] = new Room("спальня", 1, 3, 3, 2, 0xffffa0a0);
-        rooms[3] = new Room("прихожая", 4, 3, 1, 2, 0xffffffa0);
-        rooms[4] = new Room("кухня", 5, 0, 2, 3, 0xffffa0ff);
-        rooms[5] = new Room("санузел", 5, 3, 2, 2, 0xffa0a0ff);
-    }
+                break;
+            case TYPE_MEDIUM:
+                width = 7;
+                height = 5;
 
-    private Rectangle getRoomCoords(Room room) {
-        Rectangle rectangle = new Rectangle();
-        rectangle.x = (int)(room.x * host.getCellWidth());
-        rectangle.y = (int)(room.y * host.getCellHeight());
-        rectangle.width = (int)(room.width * host.getCellWidth());
-        rectangle.height = (int)(room.height * host.getCellHeight());
-        return rectangle;
-    }
+                rooms = new Room[6];
+                rooms[0] = new Room("лоджия", 0, 0, 1, 3, COLOR_BALCONY);
+                rooms[1] = new Room("сан. узел", 0, 3, 2, 2, COLOR_WC);
+                rooms[2] = new Room("комната", 1, 0, 3, 3, COLOR_ROOM1);
+                rooms[3] = new Room("корридор", 2, 3, 2, 2, COLOR_HALL);
+                rooms[4] = new Room("комната", 4, 0, 3, 3, COLOR_ROOM2);
+                rooms[5] = new Room("кухня", 4, 3, 3, 2, COLOR_KITCHEN);
 
-    public void recalculateRoomScreenBounds() {
-        for(int i = 0; i < rooms.length; i++) {
-            rooms[i].colorPaintable.setBounds(getRoomCoords(rooms[i]));
+                break;
+            case TYPE_LARGE:
+                width = 10;
+                height = 5;
+
+                rooms = new Room[7];
+                rooms[0] = new Room("лоджия", 0, 0, 1, 3, COLOR_BALCONY);
+                rooms[1] = new Room("сан. узел", 0, 3, 2, 2, COLOR_WC);
+                rooms[2] = new Room("комната", 1, 0, 3, 3, COLOR_ROOM1);
+                rooms[3] = new Room("корридор", 2, 3, 2, 2, COLOR_HALL);
+                rooms[4] = new Room("комната", 4, 0, 3, 3, COLOR_ROOM2);
+                rooms[5] = new Room("кухня", 4, 3, 3, 2, COLOR_KITCHEN);
+                rooms[6] = new Room("комната", 7, 0, 3, 5, COLOR_ROOM3);
+                break;
         }
+
+    }
+
+    public RoomsModel(int type) {
+        initModel(type);
     }
 
     public Room[] getRooms() {
         return rooms;
     }
 
+    public Icon getIconForCell(int x, int y) {
+        return defaultIcon;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Room getRoomAt(int x, int y) {
+        for(Room room: rooms) {
+            if (room.isInRoom(x, y)) {
+                return room;
+            }
+        }
+        return null;
+    }
 }

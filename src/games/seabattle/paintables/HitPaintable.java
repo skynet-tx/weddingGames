@@ -8,6 +8,9 @@ import java.awt.*;
  * Created by arkhipov on 29.11.2014.
  */
 public class HitPaintable extends ColorPaintable {
+
+    private Stroke stroke = new BasicStroke(3);
+
     public HitPaintable (Rectangle bounds) {
         super(new Color(0xffffffff), bounds);
     }
@@ -16,7 +19,6 @@ public class HitPaintable extends ColorPaintable {
     public void onPaint(Graphics g) {
         super.onPaint(g);
         Graphics2D g2 = (Graphics2D) g;
-        Stroke stroke = new BasicStroke(3);
         g2.setStroke(stroke);
         g2.setColor(new Color(0xffff0000));
         Rectangle bounds = getBounds();

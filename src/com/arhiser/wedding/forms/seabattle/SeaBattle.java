@@ -39,7 +39,8 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
     public void init() {
         gridView = new GridView<GridViewAdapter>();
         game.add(gridView);
-        gridView.setBoundColor(new Color(0xffb4b4ff));
+        gridView.setBackgroundColor(new Color(0xffb4b4ff));
+
         seaBattle = new games.seabattle.SeaBattle();
         seaBattle.setListener(this);
         gridView.setListener(seaBattle);
@@ -77,7 +78,6 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
     @Override
     public void onTurn(Prize prize) {
         turnCount++;
-        updateUI();
         if (prize != null) {
             prizeCount++;
             SoundManager.playResource("explosion.wav");
@@ -85,6 +85,7 @@ public class SeaBattle extends ManagedForm implements ActionListener, games.seab
         } else {
             SoundManager.playResource("shot.wav");
         }
+        updateUI();
     }
 
     @Override

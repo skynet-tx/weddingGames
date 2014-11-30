@@ -1,7 +1,5 @@
 package games.seekvodka;
 
-import com.arhiser.wedding.widgets.stuff.ColorPaintable;
-
 import java.awt.*;
 
 /**
@@ -9,7 +7,7 @@ import java.awt.*;
 */
 public class Room {
     public String name;
-    public ColorPaintable colorPaintable;
+    public Color color;
     public int x;
     public int y;
     public int width;
@@ -21,6 +19,10 @@ public class Room {
         this.y = y;
         this.width = width;
         this.height = height;
-        colorPaintable = new ColorPaintable(new Color(color), null);
+        this.color = new Color(color);
+    }
+
+    public boolean isInRoom(int px, int py) {
+        return px >= x && px <= (x + (width - 1)) && py >= y && py <= (y + (height - 1));
     }
 }
