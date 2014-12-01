@@ -7,6 +7,7 @@ import com.arhiser.wedding.widgets.stuff.BorderColorPaintable;
 import com.arhiser.wedding.widgets.stuff.ColorPaintable;
 import com.arhiser.wedding.widgets.stuff.Paintable;
 import com.arhiser.wedding.widgets.stuff.StringPaintable;
+import games.seekvodka.paitables.OpenCellPaintable;
 
 import java.awt.*;
 
@@ -17,17 +18,31 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
 
     private String[] labels = new String[]{"а", "б", "в", "г", "д", "е", "ж", "з", "и", "к"};
 
+    private static final int TILE_PREFS = 1;
+    private static final int TILE_CLOSED = 2;
+    private static final int TILE_OPENED = 3;
+
     private GridView host;
 
     private RoomsModel roomsModel;
+    private boolean prefsMode = false;
+
+    private Tile[] tiles;
 
     private ColorPaintable colorPaintable = new ColorPaintable(new Color(0xfff0ffff), null);
     private StringPaintable stringPaintable = new StringPaintable("", new Color(0xffffffff), null);
     private BorderColorPaintable borderPaintable = new BorderColorPaintable(new Color(0x0000ff), null);
+    private OpenCellPaintable openPaintable = new OpenCellPaintable();
 
-    public RoomsAdapter(GridView host, RoomsModel roomsModel) {
+    public RoomsAdapter(GridView host, RoomsModel roomsModel, boolean prefsMode) {
         this.host = host;
         this.roomsModel = roomsModel;
+        this.prefsMode = prefsMode;
+        notifyChanged();
+    }
+
+    public RoomsAdapter(GridView host, RoomsModel roomsModel) {
+        this(host, roomsModel, false);
     }
 
     @Override
@@ -56,8 +71,29 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
             paintable = borderPaintable;
             Room room = roomsModel.getRoomAt(x - 1, y - 1);
             if (room != null) {
+                paintable = borderPaintable;
+                borderPaintable.setText("");
                 borderPaintable.setColor(room.color);
-                checkObjectsLocation(borderPaintable, x - 1, y - 1);
+                if (prefsMode) {
+                    checkObjectsLocation(borderPaintable, x - 1, y - 1);
+                } else {
+                    Tile tile = getTile(x - 1, y - 1);
+                    if (tile.state == TILE_OPENED) {
+                        if (tile.hasMoney && tile.hasVodka) {
+                            borderPaintable.setText("!");
+                        } else if (tile.hasMoney) {
+                            borderPaintable.setText("З");
+                        } else if (tile.hasVodka) {
+                            borderPaintable.setText("П");
+                        } else {
+                            paintable = openPaintable;
+                            openPaintable.setColor(room.color);
+                            setPaintableBounds(openPaintable, x - 1, y - 1);
+                        }
+                    } else {
+                        borderPaintable.setColor(room.color);
+                    }
+                }
                 setPaintableBounds(borderPaintable, x - 1, y - 1);
             } else {
                 paintable = colorPaintable;
@@ -104,6 +140,36 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
 
     public void setRoomType(int type) {
         roomsModel.setType(type);
+        notifyChanged();
+    }
+
+    public void resetTiles () {
+        tiles = new Tile[roomsModel.getWidth() * roomsModel.getHeight()];
+        for(int i = 0; i < tiles.length; i++) {
+            tiles[i] = new Tile(prefsMode ? TILE_PREFS : TILE_CLOSED);
+            int y = i / roomsModel.getWidth();
+            int x = i % roomsModel.getWidth();
+            tiles[i].hasMoney = (x == AppModel.getInstance().seekVodkaPrefs.moneyX && y == AppModel.getInstance().seekVodkaPrefs.moneyY);
+            tiles[i].hasVodka = (x == AppModel.getInstance().seekVodkaPrefs.vodkaX && y == AppModel.getInstance().seekVodkaPrefs.vodkaY);
+        }
+    }
+
+    class Tile {
+        public int state;
+        public boolean hasVodka;
+        public boolean hasMoney;
+
+        public Tile(int state) {
+            this.state = state;
+        }
+    }
+
+    private Tile getTile(int x, int y) {
+        return tiles[y * roomsModel.getWidth() + x];
+    }
+
+    public void openCell(int x, int y) {
+        getTile(x, y).state = TILE_OPENED;
         notifyChanged();
     }
 }

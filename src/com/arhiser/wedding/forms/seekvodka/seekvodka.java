@@ -1,5 +1,6 @@
 package com.arhiser.wedding.forms.seekvodka;
 
+import com.arhiser.wedding.AppModel;
 import com.arhiser.wedding.forms.ManagedForm;
 import com.arhiser.wedding.navigation.NavigationController;
 import com.arhiser.wedding.widgets.gridview.GridView;
@@ -16,12 +17,14 @@ import java.awt.event.ActionListener;
 /**
  * Created by SER on 27.11.2014.
  */
-public class SeekVodka extends ManagedForm implements ActionListener {
+public class SeekVodka extends ManagedForm implements ActionListener, GridView.CellClickListener {
     private JPanel root;
     private JPanel gameContainer;
     private JButton backToMenu;
     private JTable tableLegend;
     private GridView<RoomsAdapter> roomGridView;
+    private RoomsAdapter roomsAdapter;
+    private RoomsModel roomsModel;
 
     @Override
     public String getTitle() {
@@ -38,8 +41,8 @@ public class SeekVodka extends ManagedForm implements ActionListener {
         backToMenu.addActionListener(this);
 
         roomGridView = new GridView<RoomsAdapter>();
-        RoomsModel roomsModel = new RoomsModel(RoomsModel.TYPE_LARGE);
-        RoomsAdapter roomsAdapter = new RoomsAdapter(roomGridView, roomsModel);
+        roomsModel = new RoomsModel(AppModel.getInstance().seekVodkaPrefs.roomType);
+        roomsAdapter = new RoomsAdapter(roomGridView, roomsModel);
 
         LegendModel legendModel = new LegendModel(roomsModel);
         tableLegend.setModel(legendModel);
@@ -56,6 +59,7 @@ public class SeekVodka extends ManagedForm implements ActionListener {
         tableLegend.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
 
         roomGridView.setAdapter(roomsAdapter);
+        roomGridView.setListener(this);
         gameContainer.add(roomGridView);
     }
 
@@ -64,5 +68,21 @@ public class SeekVodka extends ManagedForm implements ActionListener {
         if (e.getSource() == backToMenu) {
             NavigationController.getInstance().switchScreen(NavigationController.SCREEN_MAIN_MENU);
         }
+    }
+
+    @Override
+    public void onCellClicked(int x, int y) {
+        if (x == 0 || y == 0) {
+            return;
+        }
+        roomsAdapter.openCell(x - 1, y - 1);
+    }
+
+    @Override
+    public void onShow() {
+        roomsModel.setType(AppModel.getInstance().seekVodkaPrefs.roomType);
+        roomsAdapter.resetTiles();
+        roomGridView.revalidate();
+        roomGridView.repaint();
     }
 }

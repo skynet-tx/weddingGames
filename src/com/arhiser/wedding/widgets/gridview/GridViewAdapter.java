@@ -15,7 +15,9 @@ abstract public class GridViewAdapter <T extends GridView> {
     abstract public Paintable getPaintableForCell(int x, int y);
 
     public void notifyChanged() {
-        host.notifyChanged();
+        if (host != null) {
+            host.notifyChanged();
+        }
     }
 
     public void setHost(T host) {

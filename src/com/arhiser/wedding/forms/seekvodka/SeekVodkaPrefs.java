@@ -55,7 +55,7 @@ public class SeekVodkaPrefs extends ManagedForm implements ActionListener, GridV
 
         GridView<RoomsAdapter> gridView = new GridView<RoomsAdapter>();
         RoomsModel roomsModel = new RoomsModel(AppModel.getInstance().seekVodkaPrefs.roomType);
-        roomsAdapter = new RoomsAdapter(gridView, roomsModel);
+        roomsAdapter = new RoomsAdapter(gridView, roomsModel, true);
         gridView.setAdapter(roomsAdapter);
         flatHolder.add(gridView, BorderLayout.CENTER);
         gridView.setListener(this);
@@ -134,6 +134,12 @@ public class SeekVodkaPrefs extends ManagedForm implements ActionListener, GridV
 
     @Override
     public void onCellClicked(int x, int y) {
+        if (x == 0 && y == 0) {
+            return;
+        }
+        if (placementMode == PLACEMENT_NONE) {
+            return;
+        }
         if (placementMode == PLACEMENT_MONEY) {
             AppModel.getInstance().seekVodkaPrefs.moneyX = x - 1;
             AppModel.getInstance().seekVodkaPrefs.moneyY = y - 1;
