@@ -3,7 +3,6 @@ package com.arhiser.wedding.forms.seekvodka;
 import com.arhiser.wedding.forms.ManagedForm;
 import com.arhiser.wedding.navigation.NavigationController;
 import com.arhiser.wedding.widgets.gridview.GridView;
-import com.arhiser.wedding.widgets.roomgrid.RoomGridView;
 import games.seekvodka.LegendModel;
 import games.seekvodka.RoomsAdapter;
 import games.seekvodka.RoomsModel;

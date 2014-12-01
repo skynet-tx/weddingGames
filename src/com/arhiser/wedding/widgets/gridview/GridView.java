@@ -81,7 +81,8 @@ public class GridView <T extends GridViewAdapter> extends JComponent {
             cellHeight = cellHeightFull - boundWidth;
             backgroundColor.setBounds(new Rectangle(0, 0, getWidth(), getHeight()));
         }
-        invalidate();
+        revalidate();
+        repaint();
     }
 
     public T getAdapter() {

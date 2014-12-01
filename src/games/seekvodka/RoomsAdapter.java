@@ -1,5 +1,6 @@
 package games.seekvodka;
 
+import com.arhiser.wedding.AppModel;
 import com.arhiser.wedding.widgets.gridview.GridView;
 import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
 import com.arhiser.wedding.widgets.stuff.BorderColorPaintable;
@@ -56,6 +57,7 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
             Room room = roomsModel.getRoomAt(x - 1, y - 1);
             if (room != null) {
                 borderPaintable.setColor(room.color);
+                checkObjectsLocation(borderPaintable, x - 1, y - 1);
                 setPaintableBounds(borderPaintable, x - 1, y - 1);
             } else {
                 paintable = colorPaintable;
@@ -63,6 +65,23 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
         }
         paintable.setBounds(host.getCellRectangle(x, y));
         return paintable;
+    }
+
+    private void checkObjectsLocation(BorderColorPaintable paintable, int x, int y) {
+        if (    x == AppModel.getInstance().seekVodkaPrefs.moneyX
+                && y == AppModel.getInstance().seekVodkaPrefs.moneyY
+                && x == AppModel.getInstance().seekVodkaPrefs.vodkaX
+                && y == AppModel.getInstance().seekVodkaPrefs.vodkaY) {
+            paintable.setText("!");
+        } else if (    x == AppModel.getInstance().seekVodkaPrefs.moneyX
+                && y == AppModel.getInstance().seekVodkaPrefs.moneyY) {
+            paintable.setText("З");
+        } else if (    x == AppModel.getInstance().seekVodkaPrefs.vodkaX
+                && y == AppModel.getInstance().seekVodkaPrefs.vodkaY) {
+            paintable.setText("П");
+        } else {
+            paintable.setText("");
+        }
     }
 
     private void setPaintableBounds(BorderColorPaintable paintable, int x, int y) {
@@ -81,5 +100,10 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
             bounds += BorderColorPaintable.BORDER_RIGHT;
         }
         paintable.setBorders(bounds);
+    }
+
+    public void setRoomType(int type) {
+        roomsModel.setType(type);
+        notifyChanged();
     }
 }

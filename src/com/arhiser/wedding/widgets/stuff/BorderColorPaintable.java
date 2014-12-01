@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Created by SER on 30.11.2014.
  */
-public class BorderColorPaintable extends ColorPaintable {
+public class BorderColorPaintable extends StringPaintable {
 
     public static final int BORDER_UP = 1;
     public static final int BORDER_RIGHT = 2;
@@ -19,7 +19,7 @@ public class BorderColorPaintable extends ColorPaintable {
     private Stroke stroke = new BasicStroke(3);
 
     public BorderColorPaintable(Color color, Rectangle bounds) {
-        super(color, bounds);
+        super("", color, bounds);
         setColor(color);
     }
 

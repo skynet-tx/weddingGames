@@ -1,5 +1,7 @@
 package com.arhiser.wedding;
 
+import games.seekvodka.RoomsModel;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -26,6 +28,7 @@ public class AppModel implements Serializable {
     public String lastFileDir = "" ;
 
     public SeaBattlePrefs seaBattlePrefs;
+    public SeekVodkaPrefs seekVodkaPrefs;
 
     public static void initInstance() {
         File file = new File("appModel.json");
@@ -81,6 +84,7 @@ public class AppModel implements Serializable {
 
     public AppModel() {
         seaBattlePrefs = new SeaBattlePrefs();
+        seekVodkaPrefs = new SeekVodkaPrefs();
     }
 
     public class SeaBattlePrefs implements Serializable {
@@ -104,5 +108,21 @@ public class AppModel implements Serializable {
     public class PrizeParam implements Serializable {
         public String prizeName = "Приз";
         public String prizeImageFile = "";
+    }
+
+    public class SeekVodkaPrefs implements Serializable {
+        public int roomType;
+        public int moneyX;
+        public int moneyY;
+        public int vodkaX;
+        public int vodkaY;
+
+        public SeekVodkaPrefs() {
+            roomType = RoomsModel.TYPE_SMALL;
+            moneyX = -1;
+            moneyY = -1;
+            vodkaX = -1;
+            vodkaY = -1;
+        }
     }
 }

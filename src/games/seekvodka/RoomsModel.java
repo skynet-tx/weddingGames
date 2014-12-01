@@ -1,13 +1,8 @@
 package games.seekvodka;
 
 import com.arhiser.wedding.managers.ImageManager;
-import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
-import com.arhiser.wedding.widgets.roomgrid.RoomGridView;
-import com.arhiser.wedding.widgets.stuff.ColorPaintable;
-import com.arhiser.wedding.widgets.stuff.Paintable;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by SER on 27.11.2014.
@@ -104,5 +99,9 @@ public class RoomsModel {
             }
         }
         return null;
+    }
+
+    public void setType(int type) {
+        initModel(type);
     }
 }
