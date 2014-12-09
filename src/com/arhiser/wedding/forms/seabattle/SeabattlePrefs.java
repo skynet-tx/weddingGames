@@ -22,9 +22,7 @@ import java.io.File;
 public class SeabattlePrefs extends ManagedForm implements ActionListener {
     private JPanel root;
     private JButton back;
-    private JTextField defaultWinMessage;
     private JButton loadDefaultPicture;
-    private JCheckBox checkDefault;
     private JTable picTable;
     private JLabel iconDefault;
     private JButton resetPrizes;
@@ -90,7 +88,6 @@ public class SeabattlePrefs extends ManagedForm implements ActionListener {
 
     private void modelToGui() {
         AppModel appModel = AppModel.getInstance();
-        defaultWinMessage.setText(appModel.seaBattlePrefs.defaultWinMessage);
         if (appModel.seaBattlePrefs.defaultImageFile.length() == 0) {
             ImagePaintable imagePaintable = new ImagePaintable(ImageManager.getImageByResourceName("default_image.png"));
             iconDefault.setIcon(imagePaintable);
@@ -103,7 +100,6 @@ public class SeabattlePrefs extends ManagedForm implements ActionListener {
 
     private void guiToModel() {
         AppModel appModel = AppModel.getInstance();
-        appModel.seaBattlePrefs.defaultWinMessage = defaultWinMessage.getText();
     }
 
     private void loadDefaultImage() {

@@ -6,6 +6,9 @@
 <JVMSearchPath>jdkpath</JVMSearchPath>
 <JVMSearchPath>exepath</JVMSearchPath>
 <JVMSearchPath>jview</JVMSearchPath>
+<arguments></arguments>
+<classPath>src\lib\imgscalr-lib-4.2.jar</classPath>
+<classPath>src\lib\gson-2.2.4.jar</classPath>
 <currentDirectory>${EXECUTABLEPATH}</currentDirectory>
 <embeddedJar>true</embeddedJar>
 <executableName>..\..\ggg\out.exe</executableName>
@@ -15,14 +18,14 @@
 <maximumMemoryHeap>-1</maximumMemoryHeap>
 <maximumVersion></maximumVersion>
 <minimumVersion>1.6</minimumVersion>
-<skeletonName>Autodownload Wrapper</skeletonName>
+<skeletonName>Windowed Wrapper</skeletonName>
 <skeletonProperties>
 <key>Message</key>
-<value>Java has not been found on your computer. Do you want to download it?</value>
+<value>This application requires Java runtime to be installed on your computer. Do you want to download it now?</value>
 </skeletonProperties>
 <skeletonProperties>
-<key>DownloadURL</key>
-<value>http://java.sun.com/update/1.6.0/jinstall-6-windows-i586.cab</value>
+<key>URL</key>
+<value>https://java.com/ru/download/index.jsp</value>
 </skeletonProperties>
 <skeletonProperties>
 <key>SingleProcess</key>

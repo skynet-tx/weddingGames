@@ -1,5 +1,7 @@
 package com.arhiser.wedding.managers;
 
+import org.imgscalr.Scalr;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -45,7 +47,11 @@ public class ImageManager {
                 throw new RuntimeException("image not found: " + imageFile);
             }
             try {
-                cache.put(fileName, new ImageIcon(imageFile.toURI().toURL()));
+                ImageIcon imageIcon = new ImageIcon(imageFile.toURI().toURL());
+                if (imageIcon.getIconWidth() > 1024 || imageIcon.getIconHeight() > 768) {
+                    imageIcon = new ImageIcon(Scalr.resize(iconToImage(imageIcon), Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, 1024, 768, Scalr.OP_ANTIALIAS));
+                }
+                cache.put(fileName, imageIcon);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
