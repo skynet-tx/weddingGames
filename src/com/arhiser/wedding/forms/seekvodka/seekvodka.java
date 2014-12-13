@@ -1,10 +1,13 @@
 package com.arhiser.wedding.forms.seekvodka;
 
 import com.arhiser.wedding.AppModel;
+import com.arhiser.wedding.dialogs.DialogFactory;
+import com.arhiser.wedding.dialogs.PrizeDialog;
 import com.arhiser.wedding.forms.ManagedForm;
 import com.arhiser.wedding.navigation.NavigationController;
 import com.arhiser.wedding.widgets.gridview.GridView;
 import games.seekvodka.LegendModel;
+import games.seekvodka.Room;
 import games.seekvodka.RoomsAdapter;
 import games.seekvodka.RoomsModel;
 
@@ -75,7 +78,25 @@ public class SeekVodka extends ManagedForm implements ActionListener, GridView.C
         if (x == 0 || y == 0) {
             return;
         }
+        if (roomsAdapter.isTileOpened(x - 1, y - 1)) {
+            return;
+        }
+        Room room = roomsModel.getRoomAt(x - 1, y - 1);
         roomsAdapter.openCell(x - 1, y - 1);
+        if (AppModel.getInstance().seekVodkaPrefs.isCellOccuped(x - 1, y - 1)) {
+            int result = -1;
+            if (AppModel.getInstance().seekVodkaPrefs.isCellCollision(x - 1, y - 1)) {
+                result = PrizeDialog.RESULT_COLLISION;
+            } else if (AppModel.getInstance().seekVodkaPrefs.isCellMoney(x - 1, y - 1)) {
+                result = PrizeDialog.RESULT_ZANACHKA;
+            } else if (AppModel.getInstance().seekVodkaPrefs.isCellVodka(x - 1, y - 1)) {
+                result = PrizeDialog.RESULT_PUZIR;
+            }
+            DialogFactory.getInstance().showPrizeDialog(result, room.name, room.getRoomImage(x - 1, y - 1));
+        } else {
+            DialogFactory.getInstance().showPrizeDialog(room.name, room.getRoomImage(x - 1, y - 1));
+        }
+
     }
 
     @Override

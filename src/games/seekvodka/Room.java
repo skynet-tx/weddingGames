@@ -1,5 +1,8 @@
 package games.seekvodka;
 
+import com.arhiser.wedding.managers.ImageManager;
+
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -14,6 +17,8 @@ public class Room {
     public static final String ROOM_ROOM1 = "room1";
     public static final String ROOM_ROOM2 = "room2";
     public static final String ROOM_ROOM3 = "room3";
+
+    public static final String IMAGE_DIR = "room_img/";
 
     public static final String[] ROOMS = new String[]{
         ROOM_BALCONY, ROOM_WC, ROOM_HALL, ROOM_KITCHEN, ROOM_ROOM1, ROOM_ROOM2, ROOM_ROOM3
@@ -31,13 +36,15 @@ public class Room {
     }
 
     public String name;
+    public String id;
     public Color color;
     public int x;
     public int y;
     public int width;
     public int height;
 
-    Room(String name, int x, int y, int width, int height, int color) {
+    Room(String id, String name, int x, int y, int width, int height, int color) {
+        this.id = id;
         this.name = name;
         this.x = x;
         this.y = y;
@@ -48,5 +55,16 @@ public class Room {
 
     public boolean isInRoom(int px, int py) {
         return px >= x && px <= (x + (width - 1)) && py >= y && py <= (y + (height - 1));
+    }
+
+    public Icon getRoomImage(int px, int py) {
+        if(!isInRoom(px, py)) {
+            return null;
+        }
+        int internalX = px - x;
+        int internalY = py - y;
+        int cellNumber = internalY * width + internalX;
+        String imageName = id + "_" + (cellNumber + 1);
+        return ImageManager.getImageByPathName(IMAGE_DIR, imageName);
     }
 }

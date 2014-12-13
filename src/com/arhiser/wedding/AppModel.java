@@ -69,6 +69,7 @@ public class AppModel implements Serializable {
             }
             fileNames.add("resources/placeholders/puzir.png");
             fileNames.add("resources/placeholders/zanachka.png");
+            fileNames.add("resources/placeholders/collision.png");
             for(String resourcePath: fileNames) {
                 BufferedInputStream is = new BufferedInputStream(cl.getResourceAsStream(resourcePath));
                 File name = new File(resourcePath);
@@ -154,6 +155,22 @@ public class AppModel implements Serializable {
             moneyY = -1;
             vodkaX = -1;
             vodkaY = -1;
+        }
+
+        public boolean isCellVodka(int x, int y) {
+            return x == vodkaX && y == vodkaY;
+        }
+
+        public boolean isCellMoney(int x, int y) {
+            return x == moneyX && y == moneyY;
+        }
+
+        public boolean isCellCollision(int x, int y) {
+            return isCellVodka(x, y) && isCellMoney(x, y);
+        }
+
+        public boolean isCellOccuped(int x, int y) {
+            return isCellVodka(x, y) || isCellMoney(x, y);
         }
     }
 }

@@ -62,6 +62,10 @@ public class DialogFactory {
         prizeDialog.show(name, image);
     }
 
+    public void showPrizeDialog(int result, String name, Icon image) {
+        prizeDialog.show(result, name, image);
+    }
+
     public File showImageFileDialog() {
         JFileChooser chooser = new JFileChooser();
         if (AppModel.getInstance().lastFileDir.length() > 0) {

@@ -1,6 +1,7 @@
 package games.seekvodka;
 
 import com.arhiser.wedding.AppModel;
+import com.arhiser.wedding.dialogs.DialogFactory;
 import com.arhiser.wedding.widgets.gridview.GridView;
 import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
 import com.arhiser.wedding.widgets.stuff.BorderColorPaintable;
@@ -171,5 +172,9 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
     public void openCell(int x, int y) {
         getTile(x, y).state = TILE_OPENED;
         notifyChanged();
+    }
+
+    public boolean isTileOpened(int x, int y) {
+        return getTile(x, y).state == TILE_OPENED;
     }
 }
