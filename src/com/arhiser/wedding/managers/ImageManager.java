@@ -59,6 +59,34 @@ public class ImageManager {
         return cache.get(fileName);
     }
 
+    public static Icon getImageByPathName(String path, String name) {
+        String extension = null;
+        int i = name.lastIndexOf('.');
+        if (i > 0) {
+            extension = name.substring(i+1);
+        }
+        if (extension == null) {
+            if (new File(path + name + ".png").exists()) {
+                name += ".png";
+            } else {
+                name += ".jpg";
+            }
+        }
+        if (!cache.containsKey(name)) {
+            try {
+                File imageFile = new File(path + name);
+                ImageIcon imageIcon = new ImageIcon(imageFile.toURI().toURL());
+                if (imageIcon.getIconWidth() > 1024 || imageIcon.getIconHeight() > 768) {
+                    imageIcon = new ImageIcon(Scalr.resize(iconToImage(imageIcon), Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, 1024, 768, Scalr.OP_ANTIALIAS));
+                }
+                cache.put(name, imageIcon);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        return cache.get(name);
+    }
+
     public static BufferedImage iconToImage(Icon icon) {
         /*
         if (icon instanceof ImageIcon) {

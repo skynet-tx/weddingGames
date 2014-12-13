@@ -1,6 +1,8 @@
 package com.arhiser.wedding;
 
+import games.seekvodka.Room;
 import games.seekvodka.RoomsModel;
+import sun.misc.IOUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -15,6 +17,8 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.util.ArrayList;
 
 /**
  * Created by SER on 18.11.2014.
@@ -49,6 +53,33 @@ public class AppModel implements Serializable {
             }
         } else {
             instance = new AppModel();
+        }
+
+        File roomImgDir = new File("room_img");
+        if (!roomImgDir.exists()) {
+            roomImgDir.mkdir();
+            ClassLoader cl= AppModel.class.getClassLoader();
+            ArrayList<String> fileNames = new ArrayList<String>();
+            String fileName;
+            for(String room: Room.ROOMS) {
+                for(int i = 0; i < Room.cellsByRoom(room); i++) {
+                    fileName = room + "_" + (i + 1) + ".png";
+                    fileNames.add("resources/placeholders/" + fileName);
+                }
+            }
+            fileNames.add("resources/placeholders/puzir.png");
+            fileNames.add("resources/placeholders/zanachka.png");
+            for(String resourcePath: fileNames) {
+                BufferedInputStream is = new BufferedInputStream(cl.getResourceAsStream(resourcePath));
+                File name = new File(resourcePath);
+                File outputFile = new File("room_img/" + name.getName());
+                try {
+                    Files.copy(is, outputFile.toPath());
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
