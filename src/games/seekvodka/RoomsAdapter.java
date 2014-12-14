@@ -2,12 +2,10 @@ package games.seekvodka;
 
 import com.arhiser.wedding.AppModel;
 import com.arhiser.wedding.dialogs.DialogFactory;
+import com.arhiser.wedding.managers.ImageManager;
 import com.arhiser.wedding.widgets.gridview.GridView;
 import com.arhiser.wedding.widgets.gridview.GridViewAdapter;
-import com.arhiser.wedding.widgets.stuff.BorderColorPaintable;
-import com.arhiser.wedding.widgets.stuff.ColorPaintable;
-import com.arhiser.wedding.widgets.stuff.Paintable;
-import com.arhiser.wedding.widgets.stuff.StringPaintable;
+import com.arhiser.wedding.widgets.stuff.*;
 import games.seekvodka.paitables.OpenCellPaintable;
 
 import java.awt.*;
@@ -73,19 +71,20 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
             Room room = roomsModel.getRoomAt(x - 1, y - 1);
             if (room != null) {
                 paintable = borderPaintable;
-                borderPaintable.setText("");
                 borderPaintable.setColor(room.color);
                 if (prefsMode) {
                     checkObjectsLocation(borderPaintable, x - 1, y - 1);
                 } else {
                     Tile tile = getTile(x - 1, y - 1);
                     if (tile.state == TILE_OPENED) {
-                        if (tile.hasMoney && tile.hasVodka) {
-                            borderPaintable.setText("!");
-                        } else if (tile.hasMoney) {
-                            borderPaintable.setText("З");
-                        } else if (tile.hasVodka) {
-                            borderPaintable.setText("П");
+                        if (AppModel.getInstance().seekVodkaPrefs.isCellOccuped(x - 1, y - 1)) {
+                            if (tile.hasMoney && tile.hasVodka) {
+                                borderPaintable.setIcon(ImageManager.getImageByPathName(Room.IMAGE_DIR, "collision"));
+                            } else if (tile.hasMoney) {
+                                borderPaintable.setIcon(ImageManager.getImageByPathName(Room.IMAGE_DIR, "zanachka"));
+                            } else if (tile.hasVodka) {
+                                borderPaintable.setIcon(ImageManager.getImageByPathName(Room.IMAGE_DIR, "puzir"));
+                            }
                         } else {
                             paintable = openPaintable;
                             openPaintable.setColor(room.color);
@@ -93,6 +92,7 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
                         }
                     } else {
                         borderPaintable.setColor(room.color);
+                        borderPaintable.setIcon(null);
                     }
                 }
                 setPaintableBounds(borderPaintable, x - 1, y - 1);
@@ -109,15 +109,15 @@ public class RoomsAdapter extends GridViewAdapter<GridView> {
                 && y == AppModel.getInstance().seekVodkaPrefs.moneyY
                 && x == AppModel.getInstance().seekVodkaPrefs.vodkaX
                 && y == AppModel.getInstance().seekVodkaPrefs.vodkaY) {
-            paintable.setText("!");
+            borderPaintable.setIcon(ImageManager.getImageByPathName(Room.IMAGE_DIR, "collision"));
         } else if (    x == AppModel.getInstance().seekVodkaPrefs.moneyX
                 && y == AppModel.getInstance().seekVodkaPrefs.moneyY) {
-            paintable.setText("З");
+            borderPaintable.setIcon(ImageManager.getImageByPathName(Room.IMAGE_DIR, "zanachka"));
         } else if (    x == AppModel.getInstance().seekVodkaPrefs.vodkaX
                 && y == AppModel.getInstance().seekVodkaPrefs.vodkaY) {
-            paintable.setText("П");
+            borderPaintable.setIcon(ImageManager.getImageByPathName(Room.IMAGE_DIR, "puzir"));
         } else {
-            paintable.setText("");
+            paintable.setIcon(null);
         }
     }
 

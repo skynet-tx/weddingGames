@@ -46,6 +46,8 @@ public class SeekVodka extends ManagedForm implements ActionListener, GridView.C
         roomGridView = new GridView<RoomsAdapter>();
         roomsModel = new RoomsModel(AppModel.getInstance().seekVodkaPrefs.roomType);
         roomsAdapter = new RoomsAdapter(roomGridView, roomsModel);
+        roomGridView.setBackgroundColor(new Color(0xff808080));
+        roomGridView.setBoundWidth(3);
 
         LegendModel legendModel = new LegendModel(roomsModel);
         tableLegend.setModel(legendModel);

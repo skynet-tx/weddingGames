@@ -1,6 +1,7 @@
 package com.arhiser.wedding.widgets.stuff;
 
 import com.arhiser.wedding.managers.ImageManager;
+import org.imgscalr.Scalr;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by SER on 18.11.2014.
  */
-public class ImagePaintable extends Paintable implements Icon {
+public class ImagePaintable extends ColorPaintable implements Icon {
 
     private static final int padding = 10;
 
@@ -18,28 +19,45 @@ public class ImagePaintable extends Paintable implements Icon {
 
 
     public ImagePaintable(Icon icon) {
-        image = ImageManager.iconToImage(icon);
+        super(new Color(0xff000000), null);
+        setIcon(icon);
+    }
+
+    public void setIcon(Icon icon) {
+        if (icon != null) {
+            image = ImageManager.iconToImage(icon);
+            if (getBounds() != null) {
+                setBounds(getBounds());
+            }
+        } else {
+            image = null;
+        }
     }
 
     @Override
     public void onPaint(Graphics g) {
-        g.drawImage(imageScaled, 0, 0, new Color(0xff704040), null);
+        super.onPaint(g);
+        if (image != null) {
+            int x = (int) (getBounds().x + (getBounds().getWidth() - imageScaled.getWidth()) / 2);
+            int y = (int) (getBounds().y + (getBounds().getHeight() - imageScaled.getHeight()) / 2);
+            g.drawImage(imageScaled, x, y, null);
+        }
     }
 
     @Override
     public void setBounds(Rectangle bounds) {
         super.setBounds(bounds);
-        float aspect = (float)image.getWidth()/image.getHeight();
-        int width;
-        int height;
-        if (bounds.width >= bounds.height) {
-            height = bounds.height;
-            width = (int)(bounds.height * aspect);
-        } else {
-            width = bounds.width;
-            height = (int)(bounds.width / aspect);
+        if(image == null) {
+            return;
         }
-        imageScaled = ImageManager.scale(image, BufferedImage.TYPE_INT_ARGB, width, height, (float)width/image.getWidth(), (float)height/image.getHeight());
+        float boundAspect = (float)getBounds().width / getBounds().height;
+        float imageAspect = (float)image.getWidth() / image.getHeight();
+        imageScaled = image;
+        if(boundAspect > imageAspect) {
+            imageScaled = Scalr.resize(image, Scalr.Method.BALANCED, Scalr.Mode.FIT_TO_HEIGHT, getBounds().width, getBounds().height);
+        } else {
+            imageScaled = Scalr.resize(image, Scalr.Method.BALANCED, Scalr.Mode.FIT_TO_WIDTH, getBounds().width, getBounds().height);
+        }
     }
 
     @Override

@@ -100,6 +100,8 @@ public class PrizeDialog extends JDialog {
                         prizeImage.setIcon(ImageManager.getImageByPathName(Room.IMAGE_DIR, "collision"));
                         break;
                 }
+                PrizeDialog.this.setSize(new Dimension(prizeImage.getIcon().getIconWidth() + 150, prizeImage.getIcon().getIconHeight() + 150));
+                setLocation((Toolkit.getDefaultToolkit().getScreenSize().width) / 2 - getWidth() / 2, (Toolkit.getDefaultToolkit().getScreenSize().height) / 2 - getHeight() / 2);
             } else {
                 flashRemains--;
                 contentPane.setBackground(flashRemains % 2 > 0 ? new Color(0xFFFF0000) : new Color(0xFFF0F0F0));
