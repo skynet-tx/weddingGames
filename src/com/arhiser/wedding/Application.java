@@ -1,5 +1,6 @@
 package com.arhiser.wedding;
 
+import com.arhiser.wedding.forms.splash.SplashScreen;
 import com.arhiser.wedding.window.MainWindow;
 
 import javax.swing.*;
@@ -19,8 +20,9 @@ public class Application {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                AppModel.initInstance();
                 mainWindow = new MainWindow();
+                AppModel.initInstance();
+                mainWindow.initAppController();
                 mainWindow.setVisible(true);
             }
         });

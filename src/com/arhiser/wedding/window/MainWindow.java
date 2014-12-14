@@ -14,18 +14,20 @@ import java.awt.event.ActionListener;
 public class MainWindow extends JFrame implements ActionListener {
 
     public MainWindow() {
-        setTitle("Party");
+        setTitle("Загрузка...");
         setSize(1024, 768);
         setMinimumSize(new Dimension(900, 750));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(ImageManager.iconToImage(ImageManager.getImageByResourceName("appIcon.png")));
 
-        NavigationController.init(this);
-
-        NavigationController.getInstance().switchScreen(NavigationController.SCREEN_MAIN_MENU);
-
         setVisible(true);
+    }
+
+    public void initAppController() {
+        setTitle("Игры");
+        NavigationController.init(this);
+        NavigationController.getInstance().switchScreen(NavigationController.SCREEN_MAIN_MENU);
     }
 
     @Override
