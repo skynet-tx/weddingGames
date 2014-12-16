@@ -1,6 +1,5 @@
 package com.arhiser.wedding;
 
-import com.arhiser.wedding.forms.splash.SplashScreen;
 import com.arhiser.wedding.window.MainWindow;
 
 import javax.swing.*;

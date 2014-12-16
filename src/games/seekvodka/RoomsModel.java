@@ -12,7 +12,7 @@ public class RoomsModel {
     public static final int TYPE_SMALL = 1;
     public static final int TYPE_MEDIUM = 2;
     public static final int TYPE_LARGE = 3;
-
+    /*
     private static final int COLOR_BALCONY = 0xffffc0e4;
     private static final int COLOR_WC = 0xffdec0ff;
     private static final int COLOR_KITCHEN = 0xffc0d5ff;
@@ -20,6 +20,14 @@ public class RoomsModel {
     private static final int COLOR_ROOM1 = 0xffc0ffd3;
     private static final int COLOR_ROOM2 = 0xfff2ffc0;
     private static final int COLOR_ROOM3 = 0xffffdfc0;
+    */
+    private static final int COLOR_BALCONY = 0xfffc84c9;
+    private static final int COLOR_WC = 0xfffc848d;
+    private static final int COLOR_KITCHEN = 0xffac84fc;
+    private static final int COLOR_HALL = 0xff84d0fc;
+    private static final int COLOR_ROOM1 = 0xff84fc90;
+    private static final int COLOR_ROOM2 = 0xfffbfc84;
+    private static final int COLOR_ROOM3 = 0xfffcac84;
 
     private int width;
     private int height;
