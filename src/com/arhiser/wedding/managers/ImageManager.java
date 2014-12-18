@@ -48,8 +48,8 @@ public class ImageManager {
             }
             try {
                 ImageIcon imageIcon = new ImageIcon(imageFile.toURI().toURL());
-                if (imageIcon.getIconWidth() > 1024 || imageIcon.getIconHeight() > 768) {
-                    imageIcon = new ImageIcon(Scalr.resize(iconToImage(imageIcon), Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, 1024, 768, Scalr.OP_ANTIALIAS));
+                if (imageIcon.getIconWidth() > 800 || imageIcon.getIconHeight() > 600) {
+                    imageIcon = new ImageIcon(Scalr.resize(iconToImage(imageIcon), Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, 800, 600, Scalr.OP_ANTIALIAS));
                 }
                 cache.put(fileName, imageIcon);
             } catch (MalformedURLException e) {
@@ -76,8 +76,8 @@ public class ImageManager {
             try {
                 File imageFile = new File(path + name);
                 ImageIcon imageIcon = new ImageIcon(imageFile.toURI().toURL());
-                if (imageIcon.getIconWidth() > 1024 || imageIcon.getIconHeight() > 768) {
-                    imageIcon = new ImageIcon(Scalr.resize(iconToImage(imageIcon), Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, 1024, 768, Scalr.OP_ANTIALIAS));
+                if (imageIcon.getIconWidth() > 800 || imageIcon.getIconHeight() > 600) {
+                    imageIcon = new ImageIcon(Scalr.resize(iconToImage(imageIcon), Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, 800, 600, Scalr.OP_ANTIALIAS));
                 }
                 cache.put(name, imageIcon);
             } catch (MalformedURLException e) {

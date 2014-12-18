@@ -78,13 +78,6 @@
           </vspacer>
         </children>
       </grid>
-      <component id="71e7c" class="javax.swing.JLabel">
-        <constraints border-constraint="South"/>
-        <properties>
-          <preferredSize width="28" height="28"/>
-          <text value="(С) unknown organization 2014 - 2014"/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>
