@@ -49,14 +49,7 @@ public class SeekVodka extends ManagedForm implements ActionListener, GridView.C
         roomGridView.setBackgroundColor(new Color(0xff808080));
         roomGridView.setBoundWidth(3);
 
-        LegendModel legendModel = new LegendModel(roomsModel);
-        tableLegend.setModel(legendModel);
-
-        tableLegend.setRowHeight(40);
-        tableLegend.getColumnModel().getColumn(1).setPreferredWidth(300);
-        tableLegend.getColumnModel().getColumn(2).setPreferredWidth(40);
-        tableLegend.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tableLegend.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        setUpLegend();
 
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -66,6 +59,17 @@ public class SeekVodka extends ManagedForm implements ActionListener, GridView.C
         roomGridView.setAdapter(roomsAdapter);
         roomGridView.setListener(this);
         gameContainer.add(roomGridView);
+    }
+
+    private void setUpLegend(){
+        LegendModel legendModel = new LegendModel(roomsModel);
+        tableLegend.setModel(legendModel);
+
+        tableLegend.setRowHeight(40);
+        tableLegend.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tableLegend.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tableLegend.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tableLegend.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     @Override
@@ -104,6 +108,8 @@ public class SeekVodka extends ManagedForm implements ActionListener, GridView.C
     @Override
     public void onShow() {
         roomsModel.setType(AppModel.getInstance().seekVodkaPrefs.roomType);
+        setUpLegend();
+
         roomsAdapter.resetTiles();
         roomGridView.revalidate();
         roomGridView.repaint();

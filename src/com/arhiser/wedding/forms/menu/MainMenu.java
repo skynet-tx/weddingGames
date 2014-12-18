@@ -41,7 +41,7 @@ public class MainMenu extends ManagedForm implements ActionListener {
             }
         });
 
-        logo.setIcon(ImageManager.getImageByResourceName("logo_default.png"));
+        logo.setIcon(ImageManager.getImageByResourceName("logo.png"));
     }
 
     @Override
